@@ -1,10 +1,10 @@
-from flask import Flask
+from flask import Flask, render_template, redirect, request, url_for
 from pymongo import MongoClient
 import os
 
 app = Flask(__name__)
 
-db_host = host=os.environ['DB_HOST']
+db_host = os.environ['DB_HOST']
 db_port = 27017
 
 client = MongoClient(db_host, db_port)
@@ -28,3 +28,7 @@ def index():
 def delete(id):
     todos.delete_one({"_id": ObjectId(id)})
     return redirect(url_for('index'))
+
+
+if __name__ == "__main__":
+    app.run()
